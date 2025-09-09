@@ -1,0 +1,330 @@
+body {
+  background-color: rgb(93, 59, 1);
+}
+
+.form {
+  text-align: center;
+}
+
+.section1 {
+  height: 100vh;
+
+  justify-content: space-evenly;
+
+  background: url(./img/justice.jpg);
+}
+
+/* .buttons{
+border: 2px solid rgb(255, 255, 255);
+} */
+
+.golden-button {
+  touch-action: manipulation;
+  display: inline-block;
+  outline: none;
+  font-family: inherit;
+  font-size: 1em;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0.3em;
+  height: 2.75em;
+  line-height: 2.5em;
+  text-transform: uppercase;
+  padding: 0 1em;
+  margin: 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(110, 80, 20, 0.4),
+    inset 0 -2px 5px 1px rgba(139, 66, 8, 1),
+    inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+  background-image: linear-gradient(
+    160deg,
+    #a54e07,
+    #b47e11,
+    #fef1a2,
+    #bc881b,
+    #a54e07
+  );
+  border: 1px solid #a55d07;
+  color: rgb(120, 50, 5);
+  text-shadow: 0 2px 2px rgba(250, 227, 133, 1);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  background-size: 100% 100%;
+  background-position: center;
+}
+
+.golden-button:focus,
+.golden-button:hover {
+  background-size: 150% 150%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23),
+    inset 0 -2px 5px 1px #b17d10, inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+  border: 1px solid rgba(165, 93, 7, 0.6);
+  color: rgba(120, 50, 5, 0.8);
+}
+
+.golden-button:active {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(110, 80, 20, 0.4),
+    inset 0 -2px 5px 1px #b17d10, inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+}
+
+.section1 > .div1 > h1 > .trust {
+  font-size: 19px;
+}
+.section1 > .div1 > h1 > .legal {
+  font-size: 39px;
+}
+
+.section1 > .div1 {
+  margin: 30px;
+  top: 200px;
+  position: relative;
+  right: 200px;
+  color: white;
+}
+
+.section1 > .div1 > h1 {
+  font-size: 36px;
+}
+
+.div2 img {
+  width: 100%;
+  max-width: 340px;
+  position: relative;
+  margin: 30px;
+  top: 200px;
+}
+
+.section2 {
+  padding-top: 70px;
+  background-color: rgb(93, 59, 1);
+  height: 30vh;
+  color: white;
+  font-weight: 700;
+}
+
+.div2 > img {
+  background-color: white;
+  border-top-left-radius: 120px;
+  border-bottom-right-radius: 80px;
+  /* border-top-left-radius: 20px;
+border-top-right-radius: 20px; */
+}
+
+p {
+  font-weight: 100;
+  text-align: center;
+  margin: 20px;
+}
+
+h3 {
+  margin: 20px;
+
+  text-align: center;
+}
+
+.learn-more {
+  display: flex;
+  justify-content: center;
+}
+
+.section3 {
+  background-color: rgb(93, 59, 1);
+  height: 100vh;
+  color: white;
+  font-weight: 700;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  text-align: center;
+}
+
+.section4 {
+  height: 100%;
+  padding-top: 30px;
+  padding-bottom: 40px;
+}
+
+.carousel-inner > .carousel-item > img {
+  width: 200px;
+  margin: auto;
+  border: 12px solid rgb(78, 53, 2);
+  border-radius: 100px;
+  padding: 10px;
+}
+
+.practice-areas > ul {
+  list-style: none;
+}
+.practice-areas > ul > li {
+  text-align: center;
+}
+
+.ourteamimg {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(110, 80, 20, 0.4),
+    inset 0 -2px 5px 1px rgba(139, 66, 8, 1),
+    inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+  background-image: linear-gradient(
+    160deg,
+    #a54e07,
+    #b47e11,
+    #fef1a2,
+    #bc881b,
+    #a54e07
+  );
+  margin: auto;
+}
+
+.img1 > img {
+  width: 200px;
+}
+.img1 {
+  margin: auto;
+  margin: 40px;
+  border-radius: 50px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(110, 80, 20, 0.4),
+    inset 0 -2px 5px 1px rgba(139, 66, 8, 1),
+    inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+  background-image: linear-gradient(
+    160deg,
+    #a54e07,
+    #b47e11,
+    #fef1a2,
+    #bc881b,
+    #a54e07
+  );
+}
+
+.footerlinks {
+  margin: auto 30px;
+  text-align: start;
+  color: white;
+}
+
+footer {
+  background-color: rgb(93, 59, 1);
+  padding-bottom: 10px;
+}
+
+.focus-in-contract {
+  -webkit-animation: focus-in-contract 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: focus-in-contract 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes focus-in-contract {
+  0% {
+    letter-spacing: 1em;
+    -webkit-filter: blur(12px);
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+@keyframes focus-in-contract {
+  0% {
+    letter-spacing: 1em;
+    -webkit-filter: blur(12px);
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 800px) {
+  .img1 {
+    margin: auto;
+    margin: 40px;
+    font-size: 23px;
+    font-weight: 800;
+    color: black;
+    text-align: center;
+    padding: 30px;
+    border-radius: 50px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(110, 80, 20, 0.4),
+      inset 0 -2px 5px 1px rgba(139, 66, 8, 1),
+      inset 0 -1px 1px 3px rgba(250, 227, 133, 1);
+    background-image: linear-gradient(
+      160deg,
+      #a54e07,
+      #b47e11,
+      #fef1a2,
+      #bc881b,
+      #a54e07
+    );
+  }
+
+  .img1 > img {
+    width: 150px;
+  }
+
+  .section1 {
+    height: 90vh;
+
+    justify-content: space-evenly;
+
+    background: url(./img/justice.jpg);
+  }
+
+  h1 {
+    font-weight: 700;
+  }
+
+  p {
+    font-weight: 100;
+    text-align: start;
+    margin: 20px;
+  }
+
+  .div2 > img {
+    display: none;
+  }
+  .section1 > .div1 {
+    margin: 30px;
+    top: 220px;
+    position: relative;
+    right: 0px;
+    left: 0px;
+  }
+
+  .section2 {
+    background-color: rgb(93, 59, 1);
+    height: 100%;
+    color: white;
+    font-weight: 700;
+  }
+
+  .section3 {
+    background-color: rgb(93, 59, 1);
+    height: 100%;
+    color: white;
+    font-weight: 700;
+  }
+  .section3 > .img1 > p {
+    color: white;
+    font-weight: 700;
+    text-align: center;
+  }
+  .practice-areas {
+  }
+
+  .img1 > p {
+    text-align: center;
+    margin: 30px;
+  }
+
+  .ourteamimg {
+    background-color: red;
+    margin: auto;
+  }
+
+  footer {
+    margin-top: 30px;
+    padding-top: 100px;
+  }
+}
