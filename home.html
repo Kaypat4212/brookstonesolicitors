@@ -6,6 +6,8 @@
     <title>Brookstone Solicitors</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <script src="https://cdn.jsdelivr.net/npm/formik@2.4.5/dist/formik.umd.production.min.js"></script>
+    <script src="https://unpkg.com/yup@1.3.3/index.js"></script>
     <style>
       /* Original style.css content with enhancements */
       :root {
@@ -240,6 +242,41 @@
 
       .modal-footer {
         justify-content: center;
+      }
+
+      /* Alert Messages */
+      .alert-message {
+        display: none;
+        margin: 1rem auto;
+        max-width: 300px;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      .alert-success {
+        background-color: #28a745;
+        color: #fff;
+        border: 2px solid #1e7e34;
+      }
+
+      .alert-error {
+        background-color: #dc3545;
+        color: #fff;
+        border: 2px solid #c82333;
+      }
+
+      .error-text {
+        color: #ff6b6b;
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+        text-align: left;
+        padding-left: 12px;
+      }
+
+      .input.error {
+        border-color: #ff6b6b;
       }
 
       /* Section 2 */
@@ -543,17 +580,37 @@
             <p>Fill in the details accurately to book an appointment</p>
           </div>
           <div class="modal-body">
-            <form action="process.php" method="POST">
+            <div id="alertMessage" class="alert-message"></div>
+            <form id="appointmentForm" name="appointment" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+              <input type="hidden" name="form-name" value="appointment" />
+              <p style="display: none;">
+                <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+              </p>
               <div class="input-container">
-                <input class="input" name="first_name" type="text" placeholder="First Name" required />
-                <input class="input" name="last_name" type="text" placeholder="Last Name" required />
-                <input class="input" name="phone" type="tel" placeholder="Phone number" required />
-                <input class="input" name="purpose" type="text" placeholder="Purpose of appointment" required />
-                <input class="input" name="address" type="text" placeholder="Your address" required />
+                <div style="width: 100%;">
+                  <input class="input" id="first_name" name="first_name" type="text" placeholder="First Name" />
+                  <div id="first_name_error" class="error-text"></div>
+                </div>
+                <div style="width: 100%;">
+                  <input class="input" id="last_name" name="last_name" type="text" placeholder="Last Name" />
+                  <div id="last_name_error" class="error-text"></div>
+                </div>
+                <div style="width: 100%;">
+                  <input class="input" id="phone" name="phone" type="tel" placeholder="Phone number" />
+                  <div id="phone_error" class="error-text"></div>
+                </div>
+                <div style="width: 100%;">
+                  <input class="input" id="purpose" name="purpose" type="text" placeholder="Purpose of appointment" />
+                  <div id="purpose_error" class="error-text"></div>
+                </div>
+                <div style="width: 100%;">
+                  <input class="input" id="address" name="address" type="text" placeholder="Your address" />
+                  <div id="address_error" class="error-text"></div>
+                </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="golden-button" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="golden-button">Book Now</button>
+                <button type="submit" class="golden-button" id="submitBtn">Book Now</button>
               </div>
             </form>
           </div>
@@ -669,6 +726,167 @@
       AOS.init({
         duration: 800,
         once: true,
+      });
+
+      // Form validation and submission
+      const form = document.getElementById('appointmentForm');
+      const alertMessage = document.getElementById('alertMessage');
+      const submitBtn = document.getElementById('submitBtn');
+
+      // Validation rules
+      const validationRules = {
+        first_name: {
+          required: true,
+          minLength: 2,
+          message: 'First name must be at least 2 characters'
+        },
+        last_name: {
+          required: true,
+          minLength: 2,
+          message: 'Last name must be at least 2 characters'
+        },
+        phone: {
+          required: true,
+          pattern: /^[\d\s\+\-\(\)]+$/,
+          minLength: 10,
+          message: 'Please enter a valid phone number'
+        },
+        purpose: {
+          required: true,
+          minLength: 5,
+          message: 'Purpose must be at least 5 characters'
+        },
+        address: {
+          required: true,
+          minLength: 5,
+          message: 'Address must be at least 5 characters'
+        }
+      };
+
+      // Clear error
+      function clearError(fieldName) {
+        const input = document.getElementById(fieldName);
+        const errorDiv = document.getElementById(`${fieldName}_error`);
+        input.classList.remove('error');
+        errorDiv.textContent = '';
+      }
+
+      // Show error
+      function showError(fieldName, message) {
+        const input = document.getElementById(fieldName);
+        const errorDiv = document.getElementById(`${fieldName}_error`);
+        input.classList.add('error');
+        errorDiv.textContent = message;
+      }
+
+      // Validate field
+      function validateField(fieldName, value) {
+        const rules = validationRules[fieldName];
+        
+        if (rules.required && !value.trim()) {
+          return 'This field is required';
+        }
+        
+        if (rules.minLength && value.trim().length < rules.minLength) {
+          return rules.message;
+        }
+        
+        if (rules.pattern && !rules.pattern.test(value)) {
+          return rules.message;
+        }
+        
+        return null;
+      }
+
+      // Add real-time validation
+      Object.keys(validationRules).forEach(fieldName => {
+        const input = document.getElementById(fieldName);
+        input.addEventListener('blur', () => {
+          const error = validateField(fieldName, input.value);
+          if (error) {
+            showError(fieldName, error);
+          } else {
+            clearError(fieldName);
+          }
+        });
+        
+        input.addEventListener('input', () => {
+          if (input.classList.contains('error')) {
+            const error = validateField(fieldName, input.value);
+            if (!error) {
+              clearError(fieldName);
+            }
+          }
+        });
+      });
+
+      // Show alert
+      function showAlert(message, type) {
+        alertMessage.textContent = message;
+        alertMessage.className = `alert-message alert-${type}`;
+        alertMessage.style.display = 'block';
+        
+        setTimeout(() => {
+          alertMessage.style.display = 'none';
+        }, 5000);
+      }
+
+      // Form submission
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Clear previous alerts
+        alertMessage.style.display = 'none';
+        
+        // Validate all fields
+        let isValid = true;
+        const formData = new FormData(form);
+        
+        Object.keys(validationRules).forEach(fieldName => {
+          const value = formData.get(fieldName);
+          const error = validateField(fieldName, value);
+          
+          if (error) {
+            showError(fieldName, error);
+            isValid = false;
+          } else {
+            clearError(fieldName);
+          }
+        });
+        
+        if (!isValid) {
+          showAlert('Please fix the errors in the form', 'error');
+          return;
+        }
+        
+        // Disable submit button
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Booking...';
+        
+        try {
+          const response = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+          });
+          
+          if (response.ok) {
+            showAlert('Appointment booked successfully! Redirecting...', 'success');
+            form.reset();
+            
+            // Redirect to success page after 1.5 seconds
+            setTimeout(() => {
+              window.location.href = './success.html';
+            }, 1500);
+          } else {
+            throw new Error('Submission failed');
+          }
+        } catch (error) {
+          showAlert('Something went wrong. Please try again or call us directly.', 'error');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Book Now';
+        }
       });
     </script>
   </body>
